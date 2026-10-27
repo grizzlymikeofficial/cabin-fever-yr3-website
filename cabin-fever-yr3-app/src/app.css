@@ -1,0 +1,331 @@
+@font-face {
+  font-family: 'Milling Triplex 2mm';
+  src: url('./assets/fonts/MillingTrial-Triplex2mm.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Milling Triplex 3mm';
+  src: url('./assets/fonts/MillingTrial-Triplex3mm.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Milling Triplex Var';
+  src: url('./assets/fonts/MillingTriplexTrialVAR.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Ofform Regular Italic';
+  src: url('./assets/fonts/Ofform-TRIAL-RegularItalic.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: #d9d9d9;
+  color: #0a0a0a;
+  font-family: 'Milling Triplex 2mm', 'Helvetica Neue', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  min-height: 100svh;
+  min-height: 100dvh;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+.page {
+  --bg: #d9d9d9;
+  --ink: #0a0a0a;
+  --accent: #2f6bff;
+  --font: 'Milling Triplex 2mm', 'Helvetica Neue', sans-serif;
+  --font-title: 'Milling Triplex Var', 'Helvetica Neue', sans-serif;
+  --font-super: 'Ofform Regular Italic', 'Helvetica Neue', sans-serif;
+
+  position: relative;
+  min-height: 100svh;
+  min-height: 100dvh;
+  background:
+    radial-gradient(120% 80% at 50% 42%, #e8e8e8 0%, var(--bg) 55%, #cfcfcf 100%);
+  color: var(--ink);
+  font-family: var(--font);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.nav {
+  position: absolute;
+  z-index: 2;
+  top: max(1rem, env(safe-area-inset-top));
+  left: max(1rem, env(safe-area-inset-left));
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  animation: rise 0.7s ease-out both;
+  /* let empty page areas hit the 3D canvas; keep links clickable */
+  pointer-events: none;
+}
+
+.nav-group {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+}
+
+.nav a {
+  pointer-events: auto;
+  color: inherit;
+  text-decoration: none;
+  font-size: clamp(0.8rem, 2.8vw, 0.95rem);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+  text-transform: lowercase;
+  transition: opacity 0.2s ease;
+}
+
+.nav a:hover,
+.nav a:focus-visible {
+  opacity: 0.55;
+}
+
+.nav a:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.stage {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  min-height: 100dvh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.35rem;
+  padding:
+    max(5.5rem, env(safe-area-inset-top))
+    max(1rem, env(safe-area-inset-right))
+    max(2rem, env(safe-area-inset-bottom))
+    max(1rem, env(safe-area-inset-left));
+  box-sizing: border-box;
+  text-align: center;
+  pointer-events: none;
+}
+
+.stage .brand,
+.stage .dates,
+.stage .meta,
+.stage .emblem-frame {
+  pointer-events: auto;
+}
+
+.brand,
+.dates,
+.meta {
+  margin: 0;
+  font-weight: 400;
+  text-transform: lowercase;
+  letter-spacing: 0.01em;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: flex-start;
+  line-height: 1;
+  font-family: var(--font-title);
+  font-size: clamp(2rem, 3vw, 4rem);
+  animation: rise 0.8s ease-out 0.08s both;
+}
+
+.brand-text {
+  line-height: 1;
+}
+
+.brand-sup {
+  font-family: var(--font-super);
+  /* size relative to .brand so nudge units stay in sync */
+  font-size: 0.55em;
+  line-height: 1;
+  margin-left: 0.10em;
+  /* Ofform’s glyph box sits higher than Milling — drop to match optical tops */
+  translate: 0 0.3em;
+  -webkit-text-stroke: 0.04rem currentColor;
+}
+
+.dates {
+  font-size: clamp(0.9rem, 3.2vw, 1.1rem);
+  animation: rise 0.8s ease-out 0.5s both;
+}
+
+.emblem-cluster {
+  --emblem-w: min(72vw, 19rem);
+  position: relative;
+  width: var(--emblem-w);
+  display: grid;
+  place-items: center;
+  margin-block: 0.15rem;
+  animation: soft-in 1s ease-out 0.12s both;
+}
+
+.emblem-frame {
+  position: relative;
+  width: 100%;
+  line-height: 0;
+}
+
+.emblem {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+  filter: drop-shadow(0 10px 28px rgba(40, 70, 140, 0.12));
+}
+
+.meta {
+  position: absolute;
+  top: 52%;
+  font-size: clamp(0.72rem, 2.6vw, 0.95rem);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.meta--jac {
+  right: calc(100% + 0.35rem);
+  transform: translateY(-50%);
+}
+
+.meta--nyc {
+  left: calc(100% + 0.35rem);
+  transform: translateY(-50%);
+}
+
+@keyframes soft-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-0.35rem);
+  }
+}
+
+@media (min-width: 640px) {
+  .nav {
+    top: 1.5rem;
+    left: 1.75rem;
+    gap: 1rem;
+  }
+
+  .nav a {
+    font-size: 1rem;
+  }
+
+  .emblem-cluster {
+    --emblem-w: min(42vw, 22rem);
+  }
+
+  .dates {
+    font-size: 1.15rem;
+  }
+
+  .meta {
+    font-size: 1rem;
+  }
+
+  .meta--jac {
+    right: calc(100% + 0.75rem);
+  }
+
+  .meta--nyc {
+    left: calc(100% + 0.75rem);
+  }
+}
+
+@media (min-width: 960px) {
+  .emblem-cluster {
+    --emblem-w: min(34vw, 26rem);
+  }
+
+  .moon-pin {
+    width: 3.35rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .meta--jac {
+    right: auto;
+    left: 0;
+    top: auto;
+    bottom: -1.35rem;
+    transform: none;
+  }
+
+  .meta--nyc {
+    left: auto;
+    right: 0;
+    top: auto;
+    bottom: -1.35rem;
+    transform: none;
+  }
+
+  .emblem-cluster {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav,
+  .brand,
+  .dates,
+  .emblem-cluster,
+  .moon-pin {
+    animation: none;
+  }
+}
