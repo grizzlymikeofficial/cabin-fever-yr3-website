@@ -6,6 +6,7 @@
 
   const whatsApp = import.meta.env.VITE_WHATS_APP
   const showEmblem = false //Placeholde for logo animation (while working on three.js)
+  const showEndless = false
 
   const navGroups = [
     [
@@ -27,8 +28,12 @@
 
 <main class="page">
   <Champion />
-  <EndlessTools />
 
+  {#if showEndless}
+    <EndlessTools />
+  {/if}
+
+  <!--Glitch Effect for menu on hover https://cssnippets.shefali.dev/blogs/text-glitch-effect-->
   <nav class="nav" aria-label="Primary">
     {#each navGroups as group}
       <ul class="nav-group">
