@@ -227,9 +227,11 @@ a {
 }
 
 .emblem-cluster {
-  --emblem-w: min(72vw, 19rem);
+  /* leave room for side clocks; 72vw + JAC/NYC overflowed and got clipped */
+  --emblem-w: min(calc(100vw - 10.5rem), 19rem);
   position: relative;
   width: var(--emblem-w);
+  max-width: 100%;
   display: grid;
   place-items: center;
   margin-block: 0.15rem;
@@ -334,7 +336,13 @@ a {
   }
 }
 
-@media (max-width: 380px) {
+/* side clocks need ~5rem each; stack under cluster on phones */
+@media (max-width: 480px) {
+  .emblem-cluster {
+    --emblem-w: min(78vw, 19rem);
+    margin-bottom: 1.5rem;
+  }
+
   .meta--jac {
     right: auto;
     left: 0;
@@ -349,10 +357,6 @@ a {
     top: auto;
     bottom: -1.35rem;
     transform: none;
-  }
-
-  .emblem-cluster {
-    margin-bottom: 1.5rem;
   }
 }
 
