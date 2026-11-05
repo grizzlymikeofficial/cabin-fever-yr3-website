@@ -43,8 +43,8 @@ html {
 body {
   margin: 0;
   min-height: 100svh;
-  background: #d9d9d9;
-  color: #0a0a0a;
+  background: white;
+  color: #FF6200;
   font-family: 'Milling Triplex 2mm', 'Helvetica Neue', sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -66,25 +66,48 @@ a {
 }
 
 .page {
-  --bg: #d9d9d9;
-  --ink: #0a0a0a;
-  --accent: #2f6bff;
+  --bg: #8DB7FF;
+  --ink: black;
+  --ink-title: #F5F6F7;
+  --ink-menu: #F5F6F7;
+  --ink-overlay: black; /* Match Menu with #F5F6F7; */
+  --accent: gray;
+  --title-blur: 4px;
+  --overlay-background: #F5F6F7; /* slightly different grey*/
   --font: 'Milling Triplex 2mm', 'Helvetica Neue', sans-serif;
   --font-title: 'Milling Triplex Var', 'Helvetica Neue', sans-serif;
   --font-super: 'Ofform Regular Italic', 'Helvetica Neue', sans-serif;
+  /* full url(...) in the variable — lightningcss rejects url(var(--…)) */
+  --background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 
   position: relative;
   min-height: 100svh;
   min-height: 100dvh;
   background:
-    radial-gradient(120% 80% at 50% 42%, #e8e8e8 0%, var(--bg) 55%, #cfcfcf 100%);
+    radial-gradient(120% 80% at 50% 42%, white 0%, #F5F6F7 70%,var(--bg) 120%);
   color: var(--ink);
   font-family: var(--font);
   overflow: hidden;
   isolation: isolate;
 }
 
+.page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.45;
+  mix-blend-mode: multiply;
+  background-image: var(--background-image);
+  background-repeat: repeat;
+  background-size: 180px 180px;
+}
+
 .nav {
+  text-shadow:
+    0 0 var(--title-blur) var(--accent);
+  color: var(--ink-menu);
   position: absolute;
   z-index: 2;
   top: max(1rem, env(safe-area-inset-top));
@@ -92,9 +115,9 @@ a {
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
-  animation: rise 0.7s ease-out both;
-  /* let empty page areas hit the 3D canvas; keep links clickable */
+  animation: rise 1s ease-out both;
   pointer-events: none;
+
 }
 
 .nav-group {
@@ -122,6 +145,10 @@ a {
 .nav a:focus-visible {
   opacity: 0.55;
 }
+
+
+
+
 
 .nav a:focus-visible {
   outline: 1px solid var(--ink);
@@ -159,7 +186,6 @@ a {
 .meta {
   margin: 0;
   font-weight: 400;
-  text-transform: lowercase;
   letter-spacing: 0.01em;
 }
 
@@ -167,10 +193,15 @@ a {
   display: inline-flex;
   align-items: flex-start;
   line-height: 1;
+  color: var(--ink-title);
   font-family: var(--font-title);
+  text-shadow:
+    0 0 var(--title-blur) var(--accent);
   font-size: clamp(2rem, 3vw, 4rem);
-  animation: rise 0.8s ease-out 0.08s both;
+  overflow: visible;
+  animation: noise-anim-2 15s infinite linear alternate-reverse;
 }
+
 
 .brand-text {
   line-height: 1;
@@ -188,6 +219,9 @@ a {
 }
 
 .dates {
+  color: var(--ink-title);
+  text-shadow:
+    0 0 var(--title-blur) var(--accent);
   font-size: clamp(0.9rem, 3.2vw, 1.1rem);
   animation: rise 0.8s ease-out 0.5s both;
 }
@@ -223,6 +257,8 @@ a {
   font-size: clamp(0.72rem, 2.6vw, 0.95rem);
   white-space: nowrap;
   line-height: 1;
+  color: var(--ink-title);
+  text-shadow: 0 0 var(--title-blur) var(--accent);
 }
 
 .meta--jac {

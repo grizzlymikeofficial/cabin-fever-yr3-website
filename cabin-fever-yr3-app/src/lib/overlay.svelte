@@ -97,10 +97,12 @@
     border: 0;
     padding: 0;
     margin: 0;
-    background: rgba(36, 33, 33, 0.35);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    /* background: rgba(255, 255, 255, 0.5); */
+    opacity: 0.5;
+    backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(100px);
     cursor: pointer;
+    animation: ease-o 1s ease-out;
   }
 
   .overlay__sheet {
@@ -108,16 +110,23 @@
     z-index: 1;
     inset: 10%;
     overflow: auto;
+    border-radius: 10px;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
     padding:
       1.25rem
       max(1.25rem, env(safe-area-inset-right))
       max(1.5rem, env(safe-area-inset-bottom))
       max(1.25rem, env(safe-area-inset-left));
-    background: #d9d9d9;
-    color: #0a0a0a;
-    animation: ease-in 0.5s ease-out;
-    -webkit-mask-image: linear-gradient(to bottom, #d9d9d9 70%, transparent 100%);
-    mask-image: linear-gradient(to bottom, #d9d9d9 70%, transparent 100%);
+    color: var(--ink-overlay);
+    font-family: var(--font);
+    text-shadow: 0 0 var(--title-blur) var(--accent);
+    background-color: var(--overlay-background);
+    /* background-image: var(--background-image); */
+    background-repeat: repeat;
+    background-size: 180px 180px;
+    opacity: 0.8;
+    backdrop-filter: blur(100px);
+    animation: ease-o 1s ease-out;
   }
 
   .overlay__header {
@@ -140,6 +149,7 @@
     background: transparent;
     color: inherit;
     font: inherit;
+    text-shadow: inherit;
     text-transform: lowercase;
     cursor: pointer;
     opacity: 0.7;

@@ -78,6 +78,6 @@
       <Clock location="NYC" class="meta meta--nyc" />
     </div>
 
-    <p class="dates">april 30 - may 2</p>
+    <p class="dates">April 30 - May 2, 2027</p>
   </section>
 </main>
