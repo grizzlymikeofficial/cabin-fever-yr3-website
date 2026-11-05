@@ -3,6 +3,7 @@
   import Clock from './lib/clock.svelte'
   import Champion from './lib/champion.svelte'
   import EndlessTools from './lib/endless-tools-iframe.svelte'
+  import Overlay from './lib/overlay.svelte'
 
   const whatsApp = import.meta.env.VITE_WHATS_APP
   const showEmblem = false //Placeholde for logo animation (while working on three.js)
@@ -28,6 +29,7 @@
 
 <main class="page">
   <Champion />
+  <Overlay />
 
   {#if showEndless}
     <EndlessTools />
