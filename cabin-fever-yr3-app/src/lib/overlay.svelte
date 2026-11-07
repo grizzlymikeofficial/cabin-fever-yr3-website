@@ -1,16 +1,25 @@
 <script lang="ts">
   import { onMount } from 'svelte'
+  import faqsContent from './content/faqs.json'
 
-  // Hash id → sheet title (must match App nav: #about, etc.)
-  // Rich copy lives in the template below — not in this object
-  const overlays: Record<string, { title: string }> = {
-    about: { title: 'about' },
-    transport: { title: 'transport' },
-    contact: { title: 'contact' },
-    faqs: { title: 'faqs' },
+  type Bullet = { label?: string; text: string }
+  type Section = {
+    heading: string
+    intro?: string
+    bullets?: Bullet[]
+    groups?: { heading: string; bullets: Bullet[] }[]
   }
 
-  // null = closed; "about" | "transport" | ... = open that panel
+  // Hash id → sheet title (must match App nav: #about, etc.)
+  const overlays: Record<string, { title: string }> = {
+    about: { title: 'about' },
+    contact: { title: 'contact' },
+    faqs: { title: faqsContent.title },
+  }
+
+  const faqSections = faqsContent.sections as Section[]
+
+  // null = closed; "about" | "contact" | "faqs" = open that panel
   let activeId = $state<string | null>(null)
 
   // Read the # part of the URL and open/close to match
@@ -64,9 +73,7 @@
 
       <div class="overlay__body">
         {#if activeId === 'about'}
-          <p>text block text block</p>
-        {:else if activeId === 'transport'}
-          <p>getting there details coming soon — jac + nyc timing lives on the home screen.</p>
+          <p>more about soon.</p>
         {:else if activeId === 'contact'}
           <p>
             text @
@@ -75,8 +82,37 @@
             <a href="mailto:cabinfever.wy@gmail.com">cabinfever.wy@gmail.com</a>
           </p>
         {:else if activeId === 'faqs'}
-          <h3>transport</h3>
-          <p>more faqs soon.</p>
+          {#each faqSections as section}
+            <section class="overlay__section">
+              <h3>{section.heading}</h3>
+              {#if section.intro}
+                <p class="overlay__intro">{section.intro}</p>
+              {/if}
+              {#if section.bullets?.length}
+                <ul>
+                  {#each section.bullets as bullet}
+                    <li>
+                      {#if bullet.label}<span class="overlay__label">{bullet.label}</span>
+                        <span aria-hidden="true"> :: </span>{/if}{bullet.text}
+                    </li>
+                  {/each}
+                </ul>
+              {/if}
+              {#if section.groups}
+                {#each section.groups as group}
+                  <h4>{group.heading}</h4>
+                  <ul>
+                    {#each group.bullets as bullet}
+                      <li>
+                        {#if bullet.label}<span class="overlay__label">{bullet.label}</span>
+                          <span aria-hidden="true"> :: </span>{/if}{bullet.text}
+                      </li>
+                    {/each}
+                  </ul>
+                {/each}
+              {/if}
+            </section>
+          {/each}
         {/if}
       </div>
     </div>
@@ -167,9 +203,45 @@
     text-transform: lowercase;
   }
 
+  .overlay__section {
+    margin-bottom: 1.35rem;
+  }
+
+  .overlay__section:last-child {
+    margin-bottom: 0;
+  }
+
   .overlay__body h3 {
     margin: 0 0 0.35rem;
-    font-size: 1em;
+    font-size: 1.05em;
+    font-weight: 600;
+  }
+
+  .overlay__body h4 {
+    margin: 0.75rem 0 0.3rem;
+    font-size: 0.95em;
+    font-weight: 600;
+  }
+
+  .overlay__intro {
+    margin: 0 0 0.55rem;
+    opacity: 0.85;
+  }
+
+  .overlay__body ul {
+    margin: 0;
+    padding-left: 1.1rem;
+  }
+
+  .overlay__body li {
+    margin: 0 0 0.45rem;
+  }
+
+  .overlay__body li:last-child {
+    margin-bottom: 0;
+  }
+
+  .overlay__label {
     font-weight: 600;
   }
 

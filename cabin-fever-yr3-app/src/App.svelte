@@ -16,12 +16,11 @@
       { label: 'sets', href: 'https://soundcloud.com/cabinfeversoundsystem', external: true },
     ],
     [
-      { label: 'transport', href: '#transport' },
+      { label: 'contact', href: '#contact' },
       { label: 'group chat', href: whatsApp, external: true },
       { label: 'socials', href: 'https://www.instagram.com/cabinfever.wy/', external: true },
     ],
     [
-      { label: 'contact', href: '#contact' },
       { label: 'faqs', href: '#faqs' },
     ],
   ]
@@ -62,7 +61,7 @@
     <div class="emblem-cluster">
       <Clock location="JAC" class="meta meta--jac" />
 
-      {#if showEmblem}
+      {#if showEmblem} <!--Three.js fallback-->
         <div class="emblem-frame">
           <img
             class="emblem"

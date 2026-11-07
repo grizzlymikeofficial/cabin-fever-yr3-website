@@ -36,7 +36,7 @@
   const SHAPE_ORDER = ['snowflake', 'realfreak', 'cowboy', 'reelfreqqed'] as const
 
   // keep in sync with overlay.svelte panel keys
-  const OVERLAY_HASHES = new Set(['about', 'transport', 'contact', 'faqs'])
+  const OVERLAY_HASHES = new Set(['about', 'contact', 'faqs'])
 
   const t_logo = 3000 // ms hold on each logo
   const t_exp = 5000 // ms hold on each explosion
