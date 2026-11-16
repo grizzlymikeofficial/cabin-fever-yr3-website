@@ -12,7 +12,7 @@
   const navGroups = [
     [
       { label: 'about', href: '#about' },
-      { label: 'tickets', href: 'https://shopify.com', external: true },
+      { label: 'tickets', href: 'https://cabinfeverwy.myshopify.com/', external: true },
       { label: 'sets', href: 'https://soundcloud.com/cabinfeversoundsystem', external: true },
     ],
     [
