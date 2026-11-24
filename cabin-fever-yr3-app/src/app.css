@@ -69,14 +69,14 @@ a {
 .page {
   --bg: #8DB7FF;
   --ink: black;
-  --ink-title: #E3E3E3;
+  --ink-title: #F5F6F7; /*Brighter / White: #F5F6F7*/
   --ink-menu: black;
   --ink-overlay: black; /* Match Menu with #F5F6F7; */
-  --text-border-size: 3px;
-  --text-border-size-sub: 1px;
-  --text-border-size-clock: 1.15px;
+  --text-border-size: 3.5px;
+  --text-border-size-sub: 1.25px;
+  --text-border-size-clock: 2px;
   --accent-main: #8DB7FF;
-  --accent-clock: color-mix(in srgb, var(--accent-main) 70%, transparent);
+  --accent-clock: color-mix(in srgb, var(--accent-main) 80%, transparent);
   --accent: none;
   --title-blur: 0px;
   --overlay-background: ; /* slightly different grey -- Original :  #F5F6F7;*/
@@ -90,7 +90,7 @@ a {
   min-height: 100svh;
   min-height: 100dvh;
   background:
-    radial-gradient(120% 80% at 50% 42%, white 0%, #EBF7F7 70%,var(--bg) 120%); 
+    radial-gradient(120% 80% at 50% 42%, white 0%, #EBF7F7 70%,var(--bg) 120%); /* Blue undertone*/
   color: var(--ink);
   font-family: var(--font);
   overflow: hidden;
