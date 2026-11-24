@@ -1,9 +1,9 @@
 <script lang="ts">
-  type Location = 'NYC' | 'JAC'
+  type Location = 'nyc' | 'jac'
 
   const timeZones = {
-    NYC: 'America/New_York',
-    JAC: 'America/Denver', // Jackson Hole, WY (Mountain Time)
+    nyc: 'America/New_York',
+    jac: 'America/Denver', // Jackson Hole, WY (Mountain Time)
   } as const satisfies Record<Location, string>
 
   let {
@@ -28,7 +28,7 @@
     const get = (type: Intl.DateTimeFormatPartTypes) =>
       parts.find((part) => part.type === type)?.value ?? '00'
 
-    return `${get('hour')}:${get('minute')}:${get('second')} ${loc}`
+    return `${get('hour')}:${get('minute')}:${get('second')} ${loc.toUpperCase()}`
   }
 
   $effect(() => {

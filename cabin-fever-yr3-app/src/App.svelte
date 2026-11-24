@@ -17,7 +17,7 @@
     ],
     [
       { label: 'contact', href: '#contact' },
-      { label: 'group chat', href: whatsApp, external: true },
+      // { label: 'group chat', href: whatsApp, external: true },
       { label: 'socials', href: 'https://www.instagram.com/cabinfever.wy/', external: true },
     ],
     [
@@ -59,7 +59,7 @@
     </h1>
 
     <div class="emblem-cluster">
-      <Clock location="JAC" class="meta meta--jac" />
+      <Clock location="jac" class="meta meta--jac" />
 
       {#if showEmblem} <!--Three.js fallback-->
         <div class="emblem-frame">
@@ -74,9 +74,9 @@
         </div>
       {/if}
 
-      <Clock location="NYC" class="meta meta--nyc" />
+      <Clock location="nyc" class="meta meta--nyc" />
     </div>
 
-    <p class="dates">April 30 - May 2, 2027</p>
+    <p class="dates">april 30 - may 2, 2027</p>
   </section>
 </main>

@@ -1,14 +1,10 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import faqsContent from './content/faqs.json'
+  import faqsMd from './content/faqs.md?raw'
+  import { parseFaqsMd } from './content/parse-faqs'
 
-  type Bullet = { label?: string; text: string }
-  type Section = {
-    heading: string
-    intro?: string
-    bullets?: Bullet[]
-    groups?: { heading: string; bullets: Bullet[] }[]
-  }
+  const faqsContent = parseFaqsMd(faqsMd)
+  const faqSections = faqsContent.sections
 
   // Hash id → sheet title (must match App nav: #about, etc.)
   const overlays: Record<string, { title: string }> = {
@@ -16,8 +12,6 @@
     contact: { title: 'contact' },
     faqs: { title: faqsContent.title },
   }
-
-  const faqSections = faqsContent.sections as Section[]
 
   // null = closed; "about" | "contact" | "faqs" = open that panel
   let activeId = $state<string | null>(null)
@@ -73,9 +67,13 @@
 
       <div class="overlay__body">
         {#if activeId === 'about'}
-          <p>more about soon.</p>
+          <p class="overlay__value">cabin fever is festival for off-trail music, held annually in jackson hole, wyoming.</p>          
+      
+          <p class="overlay__value overlay__value--muted">april 30th - may 2nd 2027</p>
+          <p class="overlay__value overlay__value--muted">tickets presale november 27th (prior guests via email)</p>
+          <p class="overlay__value overlay__value--muted">general sale december 4th (via shopify page)</p>
         {:else if activeId === 'contact'}
-          <p>
+          <p class="overlay__value">
             text @
             <a href="sms:+13073060055">307-306-0055</a>
             | email:
@@ -92,8 +90,9 @@
                 <ul>
                   {#each section.bullets as bullet}
                     <li>
-                      {#if bullet.label}<span class="overlay__label">{bullet.label}</span>
-                        <span aria-hidden="true"> :: </span>{/if}{bullet.text}
+                      {#if bullet.label}
+                        <span class="overlay__label">{bullet.label}</span><span class="overlay__sep">{' : '}</span>
+                      {/if}<span class="overlay__value overlay__value--muted">{bullet.text}</span>
                     </li>
                   {/each}
                 </ul>
@@ -104,8 +103,9 @@
                   <ul>
                     {#each group.bullets as bullet}
                       <li>
-                        {#if bullet.label}<span class="overlay__label">{bullet.label}</span>
-                          <span aria-hidden="true"> :: </span>{/if}{bullet.text}
+                        {#if bullet.label}
+                          <span class="overlay__label">{bullet.label}</span><span class="overlay__sep">{' : '}</span>
+                        {/if}<span class="overlay__value overlay__value--muted">{bullet.text}</span>
                       </li>
                     {/each}
                   </ul>
@@ -147,7 +147,7 @@
     inset: 10%;
     overflow: auto;
     border-radius: 10px;
-    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1); */
     padding:
       1.25rem
       max(1.25rem, env(safe-area-inset-right))
@@ -175,8 +175,10 @@
 
   .overlay__title {
     margin: 0;
+    font-family: 'Milling Triplex Var', var(--font);
     font-size: clamp(1.25rem, 4vw, 1.75rem);
-    font-weight: 400;
+    font-weight: 300; /* 3mm */
+    font-variation-settings: 'wght' 300;
     text-transform: lowercase;
   }
 
@@ -198,7 +200,10 @@
   }
 
   .overlay__body {
+    font-family: 'Milling Triplex Var', var(--font);
     font-size: clamp(0.95rem, 2.8vw, 1.05rem);
+    font-weight: 150; /* ~1.5mm — light body default */
+    font-variation-settings: 'wght' 150;
     line-height: 1.45;
     text-transform: lowercase;
   }
@@ -214,17 +219,21 @@
   .overlay__body h3 {
     margin: 0 0 0.35rem;
     font-size: 1.05em;
-    font-weight: 600;
+    font-weight: 300; /* 3mm */
+    font-variation-settings: 'wght' 300;
   }
 
   .overlay__body h4 {
     margin: 0.75rem 0 0.3rem;
     font-size: 0.95em;
-    font-weight: 600;
+    font-weight: 250; /* 2.5mm */
+    font-variation-settings: 'wght' 250;
   }
 
   .overlay__intro {
     margin: 0 0 0.55rem;
+    font-weight: 150;
+    font-variation-settings: 'wght' 150;
     opacity: 0.85;
   }
 
@@ -241,12 +250,35 @@
     margin-bottom: 0;
   }
 
+  /* heavier cut for titles before : (3mm) */
   .overlay__label {
-    font-weight: 600;
+    font-weight: 300;
+    font-variation-settings: 'wght' 300;
+  }
+
+  .overlay__sep {
+    font-weight: 150;
+    font-variation-settings: 'wght' 150;
+    color: #8a8a8a;
+    white-space: pre;
+  }
+
+  /* lighter cut — about/contact body + FAQ copy after : (~1.5mm) */
+  .overlay__value {
+    font-family: 'Milling Triplex Var', var(--font);
+    font-weight: 150;
+    font-variation-settings: 'wght' 150;
+  }
+
+  .overlay__value--muted {
+    color: #8a8a8a;
   }
 
   .overlay__body p {
     margin: 0 0 0.85rem;
+    font-family: 'Milling Triplex Var', var(--font);
+    font-weight: 150;
+    font-variation-settings: 'wght' 150;
   }
 
   .overlay__body p:last-child {

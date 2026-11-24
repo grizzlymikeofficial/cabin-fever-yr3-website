@@ -14,10 +14,11 @@
   font-display: swap;
 }
 
+/* Triplex Var: wght 100=1mm … 200=2mm … 300=3mm … 500=5mm (not CSS “light/bold”) */
 @font-face {
   font-family: 'Milling Triplex Var';
   src: url('./assets/fonts/MillingTriplexTrialVAR.ttf') format('truetype');
-  font-weight: 300;
+  font-weight: 100 500;
   font-style: normal;
   font-display: swap;
 }
@@ -68,12 +69,17 @@ a {
 .page {
   --bg: #8DB7FF;
   --ink: black;
-  --ink-title: #F5F6F7;
-  --ink-menu: #F5F6F7;
+  --ink-title: #E3E3E3;
+  --ink-menu: black;
   --ink-overlay: black; /* Match Menu with #F5F6F7; */
-  --accent: gray;
-  --title-blur: 4px;
-  --overlay-background: #F5F6F7; /* slightly different grey*/
+  --text-border-size: 3px;
+  --text-border-size-sub: 1px;
+  --text-border-size-clock: 1.15px;
+  --accent-main: #8DB7FF;
+  --accent-clock: color-mix(in srgb, var(--accent-main) 70%, transparent);
+  --accent: none;
+  --title-blur: 0px;
+  --overlay-background: ; /* slightly different grey -- Original :  #F5F6F7;*/
   --font: 'Milling Triplex 2mm', 'Helvetica Neue', sans-serif;
   --font-title: 'Milling Triplex Var', 'Helvetica Neue', sans-serif;
   --font-super: 'Ofform Regular Italic', 'Helvetica Neue', sans-serif;
@@ -84,7 +90,7 @@ a {
   min-height: 100svh;
   min-height: 100dvh;
   background:
-    radial-gradient(120% 80% at 50% 42%, white 0%, #F5F6F7 70%,var(--bg) 120%);
+    radial-gradient(120% 80% at 50% 42%, white 0%, #EBF7F7 70%,var(--bg) 120%); 
   color: var(--ink);
   font-family: var(--font);
   overflow: hidden;
@@ -132,6 +138,7 @@ a {
 .nav a {
   pointer-events: auto;
   color: inherit;
+  -webkit-text-stroke: 0;
   text-decoration: none;
   font-size: clamp(0.8rem, 2.8vw, 0.95rem);
   font-weight: 400;
@@ -195,6 +202,7 @@ a {
   line-height: 1;
   color: var(--ink-title);
   font-family: var(--font-title);
+  font-weight: 300; /* Triplex Var 3mm — keep title cut stable */
   text-shadow:
     0 0 var(--title-blur) var(--accent);
   font-size: clamp(2rem, 3vw, 4rem);
@@ -202,6 +210,13 @@ a {
   animation: noise-anim-2 15s infinite linear alternate-reverse;
 }
 
+
+.brand-text,
+.brand-sup {
+  /* stroke behind fill so letter weight stays, black traces the glyphs */
+  -webkit-text-stroke: var(--text-border-size) var(--accent-main);
+  paint-order: stroke fill;
+}
 
 .brand-text {
   line-height: 1;
@@ -215,7 +230,6 @@ a {
   margin-left: 0.10em;
   /* Ofform’s glyph box sits higher than Milling — drop to match optical tops */
   translate: 0 0.3em;
-  -webkit-text-stroke: 0.04rem currentColor;
 }
 
 .dates {
@@ -224,6 +238,8 @@ a {
     0 0 var(--title-blur) var(--accent);
   font-size: clamp(0.9rem, 3.2vw, 1.1rem);
   animation: rise 0.8s ease-out 0.5s both;
+  -webkit-text-stroke: var(--text-border-size) var(--accent-main);
+  paint-order: stroke fill;
 }
 
 .emblem-cluster {
@@ -266,11 +282,15 @@ a {
 .meta--jac {
   right: calc(100% + 0.35rem);
   transform: translateY(-50%);
+  -webkit-text-stroke: var(--text-border-size-clock) var(--accent-clock);
+  paint-order: stroke fill;
 }
 
 .meta--nyc {
   left: calc(100% + 0.35rem);
   transform: translateY(-50%);
+  -webkit-text-stroke: var(--text-border-size-clock) var(--accent-clock);
+  paint-order: stroke fill;
 }
 
 @keyframes soft-in {
