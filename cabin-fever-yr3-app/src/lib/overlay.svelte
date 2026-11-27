@@ -177,8 +177,8 @@
     margin: 0;
     font-family: 'Milling Triplex Var', var(--font);
     font-size: clamp(1.25rem, 4vw, 1.75rem);
-    font-weight: 300; /* 3mm */
-    font-variation-settings: 'wght' 300;
+    font-weight: 200; /* 2mm */
+    font-variation-settings: 'wght' 200;
     text-transform: lowercase;
   }
 
@@ -219,15 +219,15 @@
   .overlay__body h3 {
     margin: 0 0 0.35rem;
     font-size: 1.05em;
-    font-weight: 300; /* 3mm */
-    font-variation-settings: 'wght' 300;
+    font-weight: 200; /* 2mm */
+    font-variation-settings: 'wght' 200;
   }
 
   .overlay__body h4 {
     margin: 0.75rem 0 0.3rem;
     font-size: 0.95em;
-    font-weight: 250; /* 2.5mm */
-    font-variation-settings: 'wght' 250;
+    font-weight: 200; /* 2mm */
+    font-variation-settings: 'wght' 200;
   }
 
   .overlay__intro {
@@ -250,10 +250,10 @@
     margin-bottom: 0;
   }
 
-  /* heavier cut for titles before : (3mm) */
+  /* label before : — match title/header cut */
   .overlay__label {
-    font-weight: 300;
-    font-variation-settings: 'wght' 300;
+    font-weight: 200; /* 2mm */
+    font-variation-settings: 'wght' 200;
   }
 
   .overlay__sep {

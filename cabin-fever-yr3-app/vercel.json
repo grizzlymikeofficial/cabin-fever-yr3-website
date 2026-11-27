@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/tickets",
+      "destination": "https://cabinfeverwy.myshopify.com/",
+      "permanent": true
+    }
+  ]
+}
